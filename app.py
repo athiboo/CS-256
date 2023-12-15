@@ -110,7 +110,7 @@ def get_documents():
         if filename.endswith('.txt'):
             file_path = os.path.join(corpus_dir, filename)
             filenames.append(filename)
-            with open(file_path, mode='rt', encoding='utf-8') as fp:
+            with open(file_path, mode='rt', encoding='unicode_escape') as fp:
                 lines = fp.read().splitlines()
                 corpus.append([i for i in lines if i])
 
