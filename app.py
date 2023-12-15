@@ -3,16 +3,13 @@ import pickle
 import os
 import nltk
 from nltk.tokenize import sent_tokenize
-#import tensorflow_hub as hub
 from scipy.spatial import distance
-from featureVector import compute_sentence_score,calculateLongestSent
+from featureVectorMethod import compute_sentence_score,calculateLongestSent
 
 #FOR T5
 from transformers import AutoTokenizer, AutoModelWithLMHead
 
-
 nltk.download('punkt')
-    
 
 def runFVec_model(articles_sent_tokenized,title):
     # Create a list of tuples (sentence, f_score)
@@ -84,10 +81,15 @@ def run_tfhub_model(model,articles_sent_tokenized,title):
 
 @st.cache_resource
 def getBART():
-        st.write("Loading BART....")
+        st.write("Loading BART")
         model=AutoModelWithLMHead.from_pretrained('facebook/bart-large-cnn', return_dict=True)
         return model
 
+@st.cache_resource
+def getBERT():
+        st.write("Loading BERT")
+        model=AutoModelWithLMHead.from_pretrained('facebook/bart-large-cnn', return_dict=True)
+        return model
 
 def getmodel(selectedmodel):
     if selectedmodel == 'TFHub':
@@ -97,6 +99,8 @@ def getmodel(selectedmodel):
         model = pickle.load(open('word2vec_model.pkl','rb'))
     elif selectedmodel == 'BART':
         model = getBART()
+    elif selectedmodel == 'BERT':
+        model = getBERT()
     return model
 
 
@@ -146,7 +150,7 @@ _, _, summaryMappings = get_summaries()
 # Dropdown to select document
 selected_doc = st.selectbox('Select Document', filemappings.keys())
 
-models = ["Feature Vector","Word2Vec","TFHub","BART","BERT"]
+models = ["Feature Vector","Word2Vec","TFHub","BERT","BART"]
 
 # Dropdown to select model
 selected_model = st.selectbox('Select Model', models)

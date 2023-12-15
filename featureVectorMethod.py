@@ -2,13 +2,10 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk import pos_tag
 
-
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 
-
 # Function to calculate the Title feature (F1) for a given sentence.
-
 def title_feature(sentence, title):
     # Tokenize the title and the sentence
     title_words = title.split()
@@ -68,8 +65,6 @@ def term_weight_feature(sentence, entire_text):
     return min(max(feature_score, 0), 1)
 
 
-
-
 # Function to calculate the Proper Noun feature (F6) for a given sentence.
 
 def proper_noun_feature(sentence):
@@ -86,7 +81,6 @@ def proper_noun_feature(sentence):
     feature_score = num_proper_nouns / len(words) if len(words) != 0 else 0
 
     return min(max(feature_score, 0), 1)
-
 
 
 
@@ -141,35 +135,3 @@ def calculateLongestSent(sentences):
       count = len(sent)
       ls = sent
   return ls
-
-
-# Sample usage
-def summarize(n, entire_text, title, doc):
-  # Define feature weights
-  weights = {
-      'F1': 0.2,  # Title feature
-      'F2': 0.1,  # Sentence length
-      'F3': 0.3,  # Sentence position
-      'F5': 0.2,  # Term weight
-      'F6': 0.1,  # Proper noun
-      'F7': 0.1   # Numerical data
-  }
-
-  longest_sentence = calculateLongestSent(doc)
-  total_sentences = len(doc)
-
-  print("Entire text: %s"%(entire_text))
-  highest_f_score = 0
-  target_pos = 0
-
-  for pos in range(1,len(doc)):
-    sentence = doc[pos]
-    f_score = compute_sentence_score(sentence=sentence, entire_text=entire_text, title=title, weights=weights, longest_sentence=longest_sentence, position=pos, total_sentences=total_sentences )
-
-    if highest_f_score < f_score:
-      highest_f_score = f_score
-      target_pos = pos
-
-  print("*******Most important sentence:\n%s"%(doc[target_pos]))
-  print("F_SCORE of above sentence: %f"%(highest_f_score))
-  return highest_f_score
