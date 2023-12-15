@@ -62,7 +62,7 @@ def run_BART_model(model,articles_sent_tokenized,title):
 
 def run_BERT_model(model,articles_sent_tokenized,title):
     sentences_score = []
-    tokenizer=AutoTokenizer.from_pretrained('AyoubChLin/BERT-Large_BBC_news')
+    tokenizer=AutoTokenizer.from_pretrained('sentence-transformers/bert-base-nli-mean-tokens')
     inputs = tokenizer.encode("summarize: " + " ".join(articles_sent_tokenized), return_tensors='pt', max_length=512, truncation=True)
     output = model.generate(inputs, min_length=80, max_length=100, num_return_sequences=1)
     summary = tokenizer.decode(output[0], skip_special_tokens=True)
@@ -88,7 +88,7 @@ def getBART():
 @st.cache_resource
 def getBERT():
         st.write("Loading BERT")
-        model=AutoModelWithLMHead.from_pretrained('AyoubChLin/BERT-Large_BBC_news', return_dict=True)
+        model=AutoModelWithLMHead.from_pretrained('sentence-transformers/bert-base-nli-mean-tokens', return_dict=True)
         return model
 
 def getmodel(selectedmodel):
