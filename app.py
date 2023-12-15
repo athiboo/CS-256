@@ -3,7 +3,7 @@ import pickle
 import os
 import nltk
 from nltk.tokenize import sent_tokenize
-import tensorflow_hub as hub
+#import tensorflow_hub as hub
 from scipy.spatial import distance
 from featureVector import compute_sentence_score,calculateLongestSent
 
