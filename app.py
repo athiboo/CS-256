@@ -123,7 +123,7 @@ def get_summaries():
     corpus = []
     filenames = []
 
-    corpus_dir = 'Summaries'
+    corpus_dir = 'summaries'
 
     for filename in os.listdir(corpus_dir):
         if filename.endswith('.txt'):
