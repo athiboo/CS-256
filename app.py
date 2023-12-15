@@ -88,14 +88,14 @@ def getBART():
 @st.cache_resource
 def getBERT():
         st.write("Loading BERT")
-        model=AutoModelWithLMHead.from_pretrained('facebook/bart-large-cnn', return_dict=True)
+        model=AutoModelWithLMHead.from_pretrained('AyoubChLin/BERT-Large_BBC_news', return_dict=True)
         return model
 
 def getmodel(selectedmodel):
     if selectedmodel == 'TFHub':
         model = getTFHub()
     elif selectedmodel == 'Word2Vec':
-        st.write("Loading Word2Vec....")
+        st.write("Loading Word2Vec")
         model = pickle.load(open('word2vec_model.pkl','rb'))
     elif selectedmodel == 'BART':
         model = getBART()
