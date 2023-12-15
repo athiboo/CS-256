@@ -104,7 +104,7 @@ def get_documents():
     corpus = []
     filenames = []
 
-    corpus_dir = 'sports'
+    corpus_dir = 'sport'
 
     for filename in os.listdir(corpus_dir):
         if filename.endswith('.txt'):
